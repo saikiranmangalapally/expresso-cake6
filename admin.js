@@ -190,7 +190,11 @@ async function fetchServerData() {
     if (data.orders) orders = data.orders;
     if (data.enquiries) enquiries = data.enquiries;
     if (data.settings) settings = data.settings;
-    if (data.catalog) catalog = data.catalog;
+    if (data.catalog && Array.isArray(data.catalog) && data.catalog.length > 0) {
+      catalog = data.catalog;
+    } else if (catalog.length > 0) {
+      syncWithServer(); // Seed server with default products
+    }
     renderAll();
   } catch (error) {
     console.error("Error fetching data from server:", error);
@@ -307,6 +311,7 @@ document.querySelector("[data-reset-products]").addEventListener("click", () => 
     ...product,
   }));
   setSaveState("Catalogue reset");
+  syncWithServer();
   renderAll();
 });
 
