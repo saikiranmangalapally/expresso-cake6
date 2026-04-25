@@ -1,0 +1,5 @@
+If you can see this file, you are in the correct folder: c:\express cake
+Your logo files are here:
+1. assets/logo.jpg
+2. logo.jpg
+3. favicon.ico
