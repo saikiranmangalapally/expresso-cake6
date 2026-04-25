@@ -1,0 +1,12 @@
+{
+  "catalog": [],
+  "orders": [],
+  "enquiries": [],
+  "settings": {
+    "storeName": "SweetCrust Bakery",
+    "phone": "+91 89700 10111",
+    "email": "support@sweetcrust.example",
+    "deliveryMessage": "Same-day and fixed-time delivery available in selected cities.",
+    "offer": "Fresh cakes, photo cakes and desserts delivered today."
+  }
+}

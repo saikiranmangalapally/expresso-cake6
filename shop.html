@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Cakes | SweetCrust Bakery</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="assets/styles.css?v=bakery-redesign-1">
+</head>
+<body>
+  <header class="site-header compact">
+    <div class="header-main">
+      <a class="brand" href="index.html"><span class="brand-mark">SC</span><span><strong>SweetCrust</strong><small>Bakery</small></span></a>
+      <label class="search-box" aria-label="Search shop">
+        <span>Search</span>
+        <input type="search" placeholder="Search cakes, pastries, desserts">
+      </label>
+      <nav class="header-actions">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Help</a>
+        <a href="shop.html">Cart</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </div>
+    <nav class="category-nav">
+      <a href="shop.html?category=birthday">Birthday</a>
+      <a href="shop.html?category=express">Express</a>
+      <a href="shop.html?category=designer">Designer</a>
+      <a href="shop.html?category=photo">Photo Cakes</a>
+      <a href="shop.html?category=wedding">Wedding</a>
+      <a href="shop.html?category=desserts">Desserts</a>
+      <a href="shop.html?category=snacks">Snacks</a>
+    </nav>
+  </header>
+  <main>
+    <section class="page-hero shop-hero">
+      <p class="eyebrow">Shop online</p>
+      <h1>Fresh cakes, desserts and celebration bakes.</h1>
+    </section>
+    <section class="catalog-layout">
+      <aside class="filters" aria-label="Shop filters">
+        <h2>Filters</h2>
+        <button class="filter-button active" data-filter="all">All Products</button>
+        <button class="filter-button" data-filter="birthday">Birthday Cakes</button>
+        <button class="filter-button" data-filter="express">Express Cakes</button>
+        <button class="filter-button" data-filter="designer">Designer Cakes</button>
+        <button class="filter-button" data-filter="photo">Photo Cakes</button>
+        <button class="filter-button" data-filter="desserts">Desserts</button>
+        <button class="filter-button" data-filter="eggless">Eggless</button>
+      </aside>
+      <div>
+        <div class="shop-toolbar">
+          <span data-result-count>Fresh selections</span>
+          <a href="contact.html">Need a custom cake?</a>
+        </div>
+        <div class="product-grid catalog" data-products data-category="all"></div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/app.js?v=bakery-redesign-1"></script>
+</body>
+</html>
