@@ -1504,10 +1504,12 @@ td select {
 /* Added for new logo */
 .brand-logo {
   height: 60px;
-  width: auto;
+  width: 60px;
   object-fit: contain;
   display: block;
+  flex-shrink: 0;
 }
 .footer-brand .brand-logo {
   height: 80px;
+  width: 80px;
 }
