@@ -266,6 +266,79 @@ async function syncWithServer() {
 
 syncWithServer();
 
+// --- GLOBAL UI UPDATES ---
+function updateGlobalUI() {
+  const cartCount = document.querySelectorAll(".cart-count");
+  const count = window.SweetCrustCart.getCount();
+  cartCount.forEach(el => {
+    el.textContent = count;
+    el.style.display = "inline-block";
+  });
+
+  const authActions = document.querySelectorAll(".header-actions");
+  authActions.forEach(el => {
+    const user = window.SweetCrustAuth.getUser();
+    const loginLink = Array.from(el.querySelectorAll('a')).find(a => a.textContent.includes('Login') || a.textContent.includes('Account'));
+    
+    if (user) {
+      if (loginLink) {
+        loginLink.href = "orders.html";
+        loginLink.textContent = "My Account";
+      } else {
+        const accLink = document.createElement('a');
+        accLink.href = "orders.html";
+        accLink.textContent = "My Account";
+        el.prepend(accLink);
+      }
+    } else {
+      if (loginLink) {
+        loginLink.href = "#";
+        loginLink.textContent = "Login";
+        loginLink.onclick = (e) => {
+          e.preventDefault();
+          const email = prompt("Enter your email to login:");
+          if (email) {
+            window.SweetCrustAuth.login(email);
+            location.reload();
+          }
+        };
+      }
+    }
+  });
+}
+
+document.addEventListener("cart-updated", updateGlobalUI);
+document.addEventListener("auth-updated", updateGlobalUI);
+window.addEventListener("load", updateGlobalUI);
+
+// --- GLOBAL CLICK HANDLER FOR CART ---
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-add-to-cart]");
+  if (btn) {
+    e.preventDefault();
+    const productId = btn.dataset.addToCart;
+    // Try exact id match first, then fall back to name-derived slug
+    let product = activeProducts.find(p => p.id === productId);
+    if (!product) {
+      product = activeProducts.find(p => {
+        const slug = (p.id || p.name.toLowerCase().replace(/ /g, '-'));
+        return slug === productId;
+      });
+    }
+    if (product) {
+      window.SweetCrustCart.add({ ...product, id: product.id || productId });
+      // Show a brief toast instead of alert
+      const toast = document.createElement('div');
+      toast.textContent = `${product.name} added to cart!`;
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#9b1f32;color:#fff;padding:14px 22px;border-radius:8px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.18);';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    } else {
+      console.warn("Product not found for id:", productId);
+    }
+  }
+});
+
 window.SweetCrustData = {
   productStorageKey,
   defaultProducts: products,
@@ -277,18 +350,20 @@ window.SweetCrustData = {
 const formatPrice = (price) => `Rs ${price.toLocaleString("en-IN")}`;
 
 function productCard(product) {
+  const productId = product.id || product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   return `
-    <a class="product-card" href="product-detail.html">
-      <div class="product-image">
+    <article class="product-card">
+      <a href="product-detail.html?id=${productId}" class="product-image">
         <img src="${product.image}" alt="${product.name}">
         <span>Free Delivery</span>
-      </div>
+      </a>
       <div>
         <small>${product.category.replace("-", " ")}</small>
-        <h3>${product.name}</h3>
+        <h3><a href="product-detail.html?id=${productId}" style="color:inherit;">${product.name}</a></h3>
         <p><strong>${formatPrice(product.price)}</strong><span>${product.rating} star</span></p>
+        <button class="btn primary" style="width: 100%; margin-top: 10px;" data-add-to-cart="${productId}">Add to Cart</button>
       </div>
-    </a>
+    </article>
   `;
 }
 

@@ -1,12 +1,1 @@
-{
-  "catalog": [],
-  "orders": [],
-  "enquiries": [],
-  "settings": {
-    "storeName": "SweetCrust Bakery",
-    "phone": "+91 89700 10111",
-    "email": "support@sweetcrust.example",
-    "deliveryMessage": "Same-day and fixed-time delivery available in selected cities.",
-    "offer": "Fresh cakes, photo cakes and desserts delivered today."
-  }
-}
+{"catalog":[],"orders":[{"id":"ORD-532837","customer":{"name":"Jane Doe","phone":"+91 12345 67890","address":"123 Cake Lane, Sweet City","email":"guest@example.com"},"items":[{"id":"belgium-truffle-cake","name":"Belgium Truffle Cake","price":600,"image":"https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=640&q=85","quantity":1}],"total":600,"date":"2026-05-01","status":"Pending","timestamp":"2026-04-25T11:14:39.592Z"}],"enquiries":[],"settings":{"storeName":"SweetCrust Bakery","phone":"+91 89700 10111","email":"support@sweetcrust.example","deliveryMessage":"Same-day and fixed-time delivery available in selected cities.","offer":"Fresh cakes, photo cakes and desserts delivered today."}}

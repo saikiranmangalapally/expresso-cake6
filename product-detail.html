@@ -3,44 +3,589 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Belgium Truffle Cake | SweetCrust Bakery</title>
+  <title>Product | SweetCrust Bakery</title>
+  <meta name="description" content="Order fresh cakes and desserts with same-day delivery.">
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="assets/styles.css?v=bakery-redesign-1">
+  <style>
+    /* ---- Product Detail Enhancements ---- */
+    .pd-wrapper {
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) 460px;
+      gap: 48px;
+      padding: 40px max(20px, calc((100% - 1240px) / 2));
+      align-items: start;
+    }
+
+    .pd-gallery {
+      position: sticky;
+      top: 100px;
+    }
+
+    .pd-gallery .main-img {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: #f8f1e9;
+    }
+
+    .pd-gallery .main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+
+    .pd-gallery:hover .main-img img { transform: scale(1.04); }
+
+    .pd-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: var(--mint);
+      color: var(--accent);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .pd-title {
+      font-size: 38px;
+      line-height: 1.1;
+      margin: 6px 0 10px;
+      color: var(--brand-dark);
+    }
+
+    .pd-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pd-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #f59e0b;
+      font-weight: 900;
+    }
+
+    .pd-price {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--brand);
+      margin: 0 0 22px;
+    }
+
+    .pd-description {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 24px;
+      font-size: 15px;
+    }
+
+    .pd-options-label {
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pd-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .pd-opt {
+      min-height: 40px;
+      padding: 0 16px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .pd-opt.active, .pd-opt:hover {
+      border-color: var(--brand);
+      background: var(--rose);
+      color: var(--brand);
+    }
+
+    .pd-location {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fffdf8;
+    }
+
+    .pd-location strong {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .pd-location input {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font: inherit;
+    }
+
+    .pd-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .pd-actions .btn {
+      font-size: 16px;
+      min-height: 54px;
+    }
+
+    .pd-wishlist {
+      width: 54px;
+      font-size: 22px;
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .pd-guarantee {
+      display: flex;
+      gap: 20px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .pd-guarantee div {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pd-guarantee strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .pd-related {
+      padding: 40px max(20px, calc((100% - 1240px) / 2));
+    }
+
+    .pd-related h2 {
+      font-size: 28px;
+      margin: 0 0 22px;
+    }
+
+    /* 404 state */
+    .pd-not-found {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .pd-wrapper { grid-template-columns: 1fr; }
+      .pd-gallery { position: static; }
+      .pd-title { font-size: 30px; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header compact">
     <div class="header-main">
       <a class="brand" href="index.html"><span class="brand-mark">SC</span><span><strong>SweetCrust</strong><small>Bakery</small></span></a>
+      <label class="search-box" aria-label="Search">
+        <span>Search</span>
+        <input type="search" placeholder="Search cakes, pastries, desserts">
+      </label>
       <nav class="header-actions">
         <a href="shop.html">Shop</a>
-        <a href="contact.html">Support</a>
-        <a href="shop.html">Cart</a>
+        <a href="checkout.html">Cart <span class="cart-count">0</span></a>
+        <a href="#">Login</a>
         <a href="admin.html">Admin</a>
       </nav>
     </div>
   </header>
-  <main class="product-detail">
-    <div class="product-gallery">
-      <img src="https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=980&q=85" alt="Belgium truffle cake">
-    </div>
-    <section class="product-info">
-      <p class="eyebrow">Bestseller</p>
-      <h1>Belgium Truffle Cake</h1>
-      <p class="price">Rs 600</p>
-      <p>Dense chocolate sponge, smooth truffle cream and a glossy finish. Available in egg and eggless options with a short message on top.</p>
-      <div class="option-row" aria-label="Cake options">
-        <span>0.5 kg</span>
-        <span>1 kg</span>
-        <span>Eggless</span>
-        <span>Photo add-on</span>
-      </div>
-      <div class="delivery-card">
-        <strong>Enter delivery location</strong>
-        <input type="text" placeholder="City or pincode">
-        <button class="btn primary">Check</button>
-      </div>
-      <a class="btn primary wide" href="shop.html">Add to Cart</a>
-    </section>
+
+  <main id="pd-main">
+    <div style="padding: 80px; text-align: center; color: var(--muted);">Loading product...</div>
   </main>
+
+  <script src="assets/cart.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/app.js?v=bakery-redesign-1"></script>
+  <script>
+    (function () {
+      // ---- Utility: generate slug from product name ----
+      function makeSlug(name) {
+        return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      }
+
+      // ---- Get product from URL param ----
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id');
+
+      // ---- Get all products (from app.js data) ----
+      function getAllProducts() {
+        if (window.SweetCrustData && window.SweetCrustData.getProducts) {
+          return window.SweetCrustData.getProducts();
+        }
+        return [];
+      }
+
+      function findProduct(id) {
+        const all = getAllProducts();
+        return all.find(p => {
+          const slug = p.id || makeSlug(p.name);
+          return slug === id || makeSlug(p.name) === id;
+        });
+      }
+
+      // ---- Descriptions per category ----
+      const categoryDescriptions = {
+        birthday: "Crafted fresh for birthdays with moist sponge, rich cream and personalised toppings. Choose egg or eggless and add a custom message.",
+        express: "Our express range is ready within hours — same moist sponge, same premium quality, just faster. Perfect for last-minute celebrations.",
+        designer: "Handcrafted by our artisan team. Available in 2D, 3D and sculpted styles. Each cake is a miniature work of edible art.",
+        photo: "Upload your favourite memory and we'll print it on an edible sheet and layer it onto a fresh cake. Ideal for surprises.",
+        wedding: "Multi-tier and single-tier wedding and engagement cakes designed to match your theme. Pre-order at least 3 days in advance.",
+        desserts: "Premium bite-sized desserts made fresh daily. Great as party favours, corporate gifts or a sweet treat for yourself.",
+        occasion: "Seasonal and festival specials baked fresh to celebrate every occasion. Limited time varieties, order early.",
+        snacks: "From cupcakes to cookie boxes and snack hampers. Perfect for corporate gifting, parties and bulk orders.",
+      };
+
+      // ---- Render the product page ----
+      function renderProduct() {
+        const product = findProduct(productId);
+        const pdMain = document.getElementById('pd-main');
+
+        if (!product) {
+          pdMain.innerHTML = `
+            <div class="pd-not-found">
+              <p class="eyebrow">Oops</p>
+              <h1>Product not found</h1>
+              <p style="color:var(--muted); margin-bottom: 28px;">The product you are looking for does not exist or may have been removed.</p>
+              <a class="btn primary" href="shop.html">Browse All Products</a>
+            </div>`;
+          return;
+        }
+
+        // Update page title + meta
+        document.title = `${product.name} | SweetCrust Bakery`;
+        document.querySelector('meta[name="description"]').content =
+          `Order ${product.name} online. Fresh baked, fast delivery. Rs ${product.price}.`;
+
+        const slug = product.id || makeSlug(product.name);
+        const desc = categoryDescriptions[product.category] || "Made fresh to order with the finest ingredients. Available in multiple sizes and customisable options.";
+        const isEggless = product.tags && product.tags.includes('eggless');
+
+        // Build related products (same category, different product)
+        const related = getAllProducts()
+          .filter(p => {
+            const pSlug = p.id || makeSlug(p.name);
+            return p.category === product.category && pSlug !== slug;
+          })
+          .slice(0, 4);
+
+        pdMain.innerHTML = `
+          <nav style="padding: 14px max(20px, calc((100% - 1240px) / 2)); font-size: 13px; color: var(--muted);">
+            <a href="index.html" style="color:var(--muted);">Home</a>
+            &rsaquo;
+            <a href="shop.html?category=${product.category}" style="color:var(--muted); text-transform: capitalize;">${product.category}</a>
+            &rsaquo;
+            <span style="color:var(--ink);">${product.name}</span>
+          </nav>
+
+          <div class="pd-wrapper">
+            <!-- Gallery -->
+            <div class="pd-gallery">
+              <div class="main-img" id="main-img-wrap">
+                <img id="main-img" src="${product.image.replace('w=640', 'w=980')}" alt="${product.name}">
+              </div>
+              <div class="gallery-thumbs" id="gallery-thumbs"></div>
+            </div>
+
+            <!-- Info -->
+            <section class="pd-info">
+              <div class="pd-badge">⭐ ${product.rating} &nbsp;&nbsp; ${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</div>
+              <h1 class="pd-title">${product.name}</h1>
+              <div class="pd-meta">
+                <span>SKU: SC-${slug.substring(0,6).toUpperCase()}</span>
+                <span style="color: var(--accent); font-weight: 900;">● In Stock</span>
+                ${isEggless ? '<span style="background:#e8f7f2; color: #0f7d72; padding: 2px 10px; border-radius: 20px;">Eggless Available</span>' : ''}
+              </div>
+              <p class="pd-price">Rs ${product.price.toLocaleString('en-IN')}</p>
+              <p class="pd-description">${desc}</p>
+
+              <p class="pd-options-label">Weight</p>
+              <div class="pd-options" id="weight-opts">
+                <button class="pd-opt active">0.5 kg</button>
+                <button class="pd-opt">1 kg</button>
+                <button class="pd-opt">1.5 kg</button>
+                <button class="pd-opt">2 kg</button>
+              </div>
+
+              <p class="pd-options-label">Flavour &amp; Type</p>
+              <div class="pd-options" id="type-opts">
+                <button class="pd-opt active">Standard</button>
+                <button class="pd-opt">Eggless</button>
+                <button class="pd-opt">Sugar-Free</button>
+              </div>
+
+              <div class="pd-location">
+                <strong>📍 Delivery Location</strong>
+                <input type="text" id="loc-input" placeholder="Enter city or pincode">
+                <button class="btn primary" onclick="checkDelivery()">Check</button>
+              </div>
+
+              <div class="pd-actions">
+                <button class="btn primary" data-add-to-cart="${slug}" style="font-size:15px; min-height:54px; gap:8px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                  Add to Cart
+                </button>
+                <button class="pd-wishlist" title="Save for later" onclick="this.querySelector('svg').style.fill = this.querySelector('svg').style.fill === 'currentColor' ? 'none' : 'currentColor'">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:fill .2s;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </button>
+              </div>
+
+              <div class="pd-guarantee">
+                <div>
+                  <strong><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></strong>
+                  Same-day delivery
+                </div>
+                <div>
+                  <strong><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></strong>
+                  Secure payments
+                </div>
+                <div>
+                  <strong><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></strong>
+                  Fresh guarantee
+                </div>
+                <div>
+                  <strong><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></strong>
+                  Free message card
+                </div>
+              </div>
+            </section>
+          </div>
+
+          ${related.length ? `
+            <section class="pd-related">
+              <h2>You might also like</h2>
+              <div class="product-grid" style="grid-template-columns: repeat(4,1fr);">
+                ${related.map(p => {
+                  const pSlug = p.id || makeSlug(p.name);
+                  return `
+                    <article class="product-card">
+                      <a href="product-detail.html?id=${pSlug}" class="product-image">
+                        <img src="${p.image}" alt="${p.name}">
+                        <span>Free Delivery</span>
+                      </a>
+                      <div>
+                        <small>${p.category}</small>
+                        <h3>${p.name}</h3>
+                        <p><strong>Rs ${p.price}</strong><span>${p.rating} star</span></p>
+                        <button class="btn primary" style="width:100%;margin-top:10px;" data-add-to-cart="${pSlug}">Add to Cart</button>
+                      </div>
+                    </article>`;
+                }).join('')}
+              </div>
+            </section>` : ''}
+
+          <!-- Reviews Section -->
+          <section class="reviews-section" id="reviews-section">
+            <div class="reviews-header">
+              <h2>Customer Reviews</h2>
+              <div class="pd-badge">⭐ ${product.rating} · ${Math.floor(Math.random()*80)+40} reviews</div>
+            </div>
+            <div class="rating-summary">
+              <div>
+                <div class="rating-big">${product.rating}</div>
+                <div class="rating-stars">★★★★★</div>
+                <div style="font-size:13px; color:var(--muted); margin-top:4px;">out of 5</div>
+              </div>
+              <div class="rating-bars">
+                ${[5,4,3,2,1].map((s, i) => {
+                  const widths = [72,18,6,3,1];
+                  return `<div class="rating-bar-row"><span>${s}★</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:${widths[i]}%"></div></div><span style="color:var(--muted)">${widths[i]}%</span></div>`;
+                }).join('')}
+              </div>
+            </div>
+            <div class="review-cards" id="review-list"></div>
+            <div class="review-form">
+              <h3>Write a Review</h3>
+              <div class="star-picker" id="star-picker">
+                <span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
+              </div>
+              <input type="text" id="rev-name" placeholder="Your name">
+              <textarea id="rev-text" placeholder="Share your experience with this cake…"></textarea>
+              <button class="btn primary" onclick="submitReview('${slug}')">Submit Review</button>
+            </div>
+          </section>
+        `;
+
+        // Weight/type option toggle
+        document.querySelectorAll('#weight-opts .pd-opt, #type-opts .pd-opt').forEach(btn => {
+          btn.addEventListener('click', function() {
+            this.closest('.pd-options').querySelectorAll('.pd-opt').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+
+        // Image gallery thumbnails
+        const thumbContainer = document.getElementById('gallery-thumbs');
+        const mainImg = document.getElementById('main-img');
+        if (thumbContainer && product.gallery && product.gallery.length) {
+          product.gallery.forEach((src, i) => {
+            const t = document.createElement('div');
+            t.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
+            t.innerHTML = `<img src="${src}" alt="view ${i+1}">`;
+            t.onclick = () => {
+              mainImg.src = src.replace('w=640','w=980');
+              thumbContainer.querySelectorAll('.gallery-thumb').forEach(x => x.classList.remove('active'));
+              t.classList.add('active');
+            };
+            thumbContainer.appendChild(t);
+          });
+        } else if (thumbContainer) {
+          // Generate fake alternate views using different image params
+          const alts = ['&crop=center', '&crop=entropy', '&crop=faces'];
+          [product.image, ...alts.map(q => product.image + q)].slice(0, 4).forEach((src, i) => {
+            const t = document.createElement('div');
+            t.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
+            t.innerHTML = `<img src="${src}" alt="view ${i+1}">`;
+            t.onclick = () => {
+              mainImg.src = src.replace('w=640','w=980');
+              thumbContainer.querySelectorAll('.gallery-thumb').forEach(x => x.classList.remove('active'));
+              t.classList.add('active');
+            };
+            thumbContainer.appendChild(t);
+          });
+        }
+
+        // Star picker
+        let selectedStars = 5;
+        const stars = document.querySelectorAll('#star-picker span');
+        stars.forEach(s => {
+          s.classList.toggle('active', parseInt(s.dataset.star) <= selectedStars);
+          s.addEventListener('click', function() {
+            selectedStars = parseInt(this.dataset.star);
+            stars.forEach(x => x.classList.toggle('active', parseInt(x.dataset.star) <= selectedStars));
+          });
+        });
+
+        // Load reviews
+        loadReviews(slug);
+      }
+
+      function checkDelivery() {
+        const val = document.getElementById('loc-input').value.trim();
+        if (!val) { alert('Please enter a city or pincode.'); return; }
+        const toast = document.createElement('div');
+        toast.textContent = `✅ Delivery available to "${val}". Order before 6 PM for same-day.`;
+        toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f7d72;color:#fff;padding:14px 22px;border-radius:8px;font-weight:700;z-index:9999;';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+      window.checkDelivery = checkDelivery;
+
+      // ---- Reviews ----
+      const SEED_REVIEWS = [
+        { name: 'Priya M.', stars: 5, text: 'Absolutely delicious! The cake was fresh, beautifully presented and delivered on time. Will order again!', date: '14 Apr 2026', verified: true },
+        { name: 'Rahul S.', stars: 5, text: 'Ordered for my wife\'s birthday. She loved it! Great quality and the message on the cake was perfect.', date: '8 Apr 2026', verified: true },
+        { name: 'Ananya K.', stars: 4, text: 'Very good taste. Slightly late delivery but the freshness made up for it. Overall happy.', date: '2 Apr 2026', verified: false },
+      ];
+
+      async function loadReviews(slug) {
+        const container = document.getElementById('review-list');
+        if (!container) return;
+        try {
+          const res = await fetch('/api/data');
+          const data = await res.json();
+          const reviews = [...SEED_REVIEWS, ...((data.reviews && data.reviews[slug]) || [])];
+          container.innerHTML = reviews.map(r => `
+            <div class="review-card">
+              <div class="review-card-header">
+                <span class="reviewer-name">${r.name} ${r.verified ? '<span class="verified-badge">✅ Verified Purchase</span>' : ''}</span>
+                <span class="review-date">${r.date}</span>
+              </div>
+              <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+              <p class="review-text">${r.text}</p>
+            </div>`).join('');
+        } catch {
+          container.innerHTML = SEED_REVIEWS.map(r => `
+            <div class="review-card">
+              <div class="review-card-header">
+                <span class="reviewer-name">${r.name}</span>
+                <span class="review-date">${r.date}</span>
+              </div>
+              <div class="review-stars">${'★'.repeat(r.stars)}</div>
+              <p class="review-text">${r.text}</p>
+            </div>`).join('');
+        }
+      }
+
+      async function submitReview(slug) {
+        const name = document.getElementById('rev-name').value.trim();
+        const text = document.getElementById('rev-text').value.trim();
+        const stars = document.querySelectorAll('#star-picker span.active').length || 5;
+        if (!name || !text) { alert('Please enter your name and review.'); return; }
+        const review = { name, stars, text, date: new Date().toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}), verified: false };
+        try {
+          const res = await fetch('/api/data');
+          const data = await res.json();
+          data.reviews = data.reviews || {};
+          data.reviews[slug] = data.reviews[slug] || [];
+          data.reviews[slug].unshift(review);
+          await fetch('/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+          document.getElementById('rev-name').value = '';
+          document.getElementById('rev-text').value = '';
+          loadReviews(slug);
+          const toast = document.createElement('div');
+          toast.textContent = '🎉 Thank you for your review!';
+          toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#0f7d72;color:#fff;padding:14px 22px;border-radius:8px;font-weight:700;z-index:9999;';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 2500);
+        } catch { alert('Error submitting review. Please try again.'); }
+      }
+      window.submitReview = submitReview;
+
+      // Wait for app.js to initialise, then render
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderProduct);
+      } else {
+        renderProduct();
+      }
+    })();
+  </script>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/918970010111?text=Hi%2C%20I%20want%20to%20order%20a%20cake!" target="_blank" class="whatsapp-fab" title="Order via WhatsApp" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
 </body>
 </html>

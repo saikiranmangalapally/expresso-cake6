@@ -76,7 +76,7 @@ let enquiries = readJson(storage.enquiries, seedEnquiries);
 let settings = readJson(storage.settings, defaultSettings);
 
 function renderMetrics() {
-  const revenue = orders.reduce((sum, order) => sum + Number(order.amount), 0);
+  const revenue = orders.reduce((sum, order) => sum + Number(order.total || order.amount || 0), 0);
   const pending = enquiries.filter((enquiry) => enquiry.status !== "Closed").length;
   document.querySelector('[data-metric="revenue"]').textContent = money(revenue);
   document.querySelector('[data-metric="orders"]').textContent = String(orders.length);
@@ -88,8 +88,8 @@ function renderRecentOrders() {
   const rows = orders.slice(0, 4).map((order) => `
     <tr>
       <td>${order.id}</td>
-      <td>${order.customer}</td>
-      <td>${money(order.amount)}</td>
+      <td>${order.customer.name || order.customer}</td>
+      <td>${money(order.total || order.amount)}</td>
       <td><span class="status-pill">${order.status}</span></td>
     </tr>
   `).join("");
@@ -140,20 +140,27 @@ function renderProducts() {
 }
 
 function renderOrders() {
-  document.querySelector("[data-order-table]").innerHTML = orders.map((order) => `
-    <tr>
-      <td>${order.id}</td>
-      <td>${order.customer}</td>
-      <td>${order.items}</td>
-      <td>${order.slot}</td>
-      <td>${money(order.amount)}</td>
-      <td>
-        <select data-order-status="${order.id}">
-          ${["Confirmed", "Preparing", "Out for delivery", "Delivered", "Scheduled"].map((status) => `<option value="${status}" ${status === order.status ? "selected" : ""}>${status}</option>`).join("")}
-        </select>
-      </td>
-    </tr>
-  `).join("");
+  document.querySelector("[data-order-table]").innerHTML = orders.map((order) => {
+    const customerName = order.customer.name || order.customer;
+    const itemsList = Array.isArray(order.items) ? order.items.map(i => i.name).join(', ') : order.items;
+    const orderTotal = order.total || order.amount;
+    const orderSlot = order.date || order.slot;
+
+    return `
+      <tr>
+        <td>${order.id}</td>
+        <td>${customerName}</td>
+        <td>${itemsList}</td>
+        <td>${orderSlot}</td>
+        <td>${money(orderTotal)}</td>
+        <td>
+          <select data-order-status="${order.id}">
+            ${["Confirmed", "Preparing", "Out for delivery", "Delivered", "Scheduled", "Pending"].map((status) => `<option value="${status}" ${status === order.status ? "selected" : ""}>${status}</option>`).join("")}
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
 
 function renderEnquiries() {
