@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   // Use /tmp/data.json in Vercel production
   const dataPath = path.join("/tmp", "data.json");
   const fallbackPath = path.join(process.cwd(), "data.json");
