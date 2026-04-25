@@ -217,7 +217,7 @@ const products = [
   },
 ];
 
-const productStorageKey = "sweetcrust-products";
+const productStorageKey = "Expresso Cake-products";
 
 function loadProducts() {
   try {
@@ -269,7 +269,7 @@ syncWithServer();
 // --- GLOBAL UI UPDATES ---
 function updateGlobalUI() {
   const cartCount = document.querySelectorAll(".cart-count");
-  const count = window.SweetCrustCart.getCount();
+  const count = window.ExpressoCart.getCount();
   cartCount.forEach(el => {
     el.textContent = count;
     el.style.display = "inline-block";
@@ -277,7 +277,7 @@ function updateGlobalUI() {
 
   const authActions = document.querySelectorAll(".header-actions");
   authActions.forEach(el => {
-    const user = window.SweetCrustAuth.getUser();
+    const user = window.ExpressoAuth.getUser();
     const loginLink = Array.from(el.querySelectorAll('a')).find(a => a.textContent.includes('Login') || a.textContent.includes('Account'));
     
     if (user) {
@@ -298,7 +298,7 @@ function updateGlobalUI() {
           e.preventDefault();
           const email = prompt("Enter your email to login:");
           if (email) {
-            window.SweetCrustAuth.login(email);
+            window.ExpressoAuth.login(email);
             location.reload();
           }
         };
@@ -326,7 +326,7 @@ document.addEventListener("click", (e) => {
       });
     }
     if (product) {
-      window.SweetCrustCart.add({ ...product, id: product.id || productId });
+      window.ExpressoCart.add({ ...product, id: product.id || productId });
       // Show a brief toast instead of alert
       const toast = document.createElement('div');
       toast.textContent = `${product.name} added to cart!`;
@@ -339,7 +339,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-window.SweetCrustData = {
+window.ExpressoData = {
   productStorageKey,
   defaultProducts: products,
   getProducts: loadProducts,

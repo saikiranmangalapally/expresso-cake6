@@ -1,4 +1,4 @@
-const CART_STORAGE_KEY = "sweetcrust-cart";
+const CART_STORAGE_KEY = "Expresso Cake-cart";
 
 const Cart = {
   get() {
@@ -55,4 +55,4 @@ const Cart = {
   }
 };
 
-window.SweetCrustCart = Cart;
+window.ExpressoCart = Cart;

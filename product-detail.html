@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Product | SweetCrust Bakery</title>
+  <title>Product | Expresso Cake</title>
   <meta name="description" content="Order fresh cakes and desserts with same-day delivery.">
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-1">
+  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-2">
   <style>
     /* ---- Product Detail Enhancements ---- */
     .pd-wrapper {
@@ -219,7 +219,7 @@
   <header class="site-header compact">
     <div class="header-main">
       <a class="brand" href="index.html" aria-label="Cake Expresso home">
-        <img src="/assets/logo.png" alt="Cake Expresso" style="height: 60px; width: auto; object-fit: contain;">
+        <img src="/assets/logo.jpg" alt="Cake Expresso" class="brand-logo">
       </a>
       <label class="search-box" aria-label="Search">
         <span>Search</span>
@@ -254,8 +254,8 @@
 
       // ---- Get all products (from app.js data) ----
       function getAllProducts() {
-        if (window.SweetCrustData && window.SweetCrustData.getProducts) {
-          return window.SweetCrustData.getProducts();
+        if (window.ExpressoData && window.ExpressoData.getProducts) {
+          return window.ExpressoData.getProducts();
         }
         return [];
       }
@@ -297,7 +297,7 @@
         }
 
         // Update page title + meta
-        document.title = `${product.name} | SweetCrust Bakery`;
+        document.title = `${product.name} | Expresso Cake`;
         document.querySelector('meta[name="description"]').content =
           `Order ${product.name} online. Fresh baked, fast delivery. Rs ${product.price}.`;
 

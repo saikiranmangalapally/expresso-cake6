@@ -88,6 +88,6 @@ if (isVercel) {
   module.exports = requestHandler;
 } else {
   http.createServer(requestHandler).listen(port, "127.0.0.1", () => {
-    console.log(`SweetCrust preview running at http://127.0.0.1:${port}/`);
+    console.log(`Expresso Cake preview running at http://127.0.0.1:${port}/`);
   });
 }

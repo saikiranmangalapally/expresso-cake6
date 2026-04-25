@@ -1,4 +1,4 @@
-const AUTH_STORAGE_KEY = "sweetcrust-user";
+const AUTH_STORAGE_KEY = "Expresso Cake-user";
 
 const Auth = {
   getUser() {
@@ -30,4 +30,4 @@ const Auth = {
   }
 };
 
-window.SweetCrustAuth = Auth;
+window.ExpressoAuth = Auth;

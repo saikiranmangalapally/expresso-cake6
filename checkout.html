@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Checkout | SweetCrust Bakery</title>
-  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-1">
+  <title>Checkout | Expresso Cake</title>
+  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-2">
 </head>
 <body>
   <header class="site-header compact">
     <div class="header-main">
       <a class="brand" href="index.html" aria-label="Cake Expresso home">
-        <img src="/assets/logo.png" alt="Cake Expresso" style="height: 60px; width: auto; object-fit: contain;">
+        <img src="/assets/logo.jpg" alt="Cake Expresso" class="brand-logo">
       </a>
       <nav class="header-actions">
         <a href="shop.html">Shop</a>
@@ -157,9 +157,9 @@
     let pendingOrder = null;
 
     function renderCheckout() {
-      const cart = window.SweetCrustCart.get();
+      const cart = window.ExpressoCart.get();
       const container = document.getElementById('cart-items');
-      const subtotal = window.SweetCrustCart.getTotal();
+      const subtotal = window.ExpressoCart.getTotal();
 
       if (!cart.length) {
         container.innerHTML = '<p style="color:var(--muted);">Your cart is empty. <a href="shop.html">Browse cakes →</a></p>';
@@ -186,7 +186,7 @@
     }
 
     function removeItem(id) {
-      window.SweetCrustCart.remove(id);
+      window.ExpressoCart.remove(id);
       renderCheckout();
     }
 
@@ -213,7 +213,7 @@
         appliedCoupon = code;
         msgEl.className = 'coupon-msg success';
         msgEl.textContent = `✅ Coupon applied! ${COUPONS[code].label}`;
-        updateTotal(window.SweetCrustCart.getTotal());
+        updateTotal(window.ExpressoCart.getTotal());
       } else {
         msgEl.className = 'coupon-msg error';
         msgEl.textContent = '❌ Invalid coupon code. Try SWEET10, FRESH20 or FLAT100.';
@@ -246,7 +246,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-        window.SweetCrustCart.clear();
+        window.ExpressoCart.clear();
         // Redirect to order confirmation
         window.location.href = `orders.html?confirmed=${pendingOrder.id}`;
       } catch (err) {
@@ -256,9 +256,9 @@
 
     document.getElementById('order-form').addEventListener('submit', e => {
       e.preventDefault();
-      const cart = window.SweetCrustCart.get();
+      const cart = window.ExpressoCart.get();
       if (!cart.length) return alert('Your cart is empty!');
-      const subtotal = window.SweetCrustCart.getTotal();
+      const subtotal = window.ExpressoCart.getTotal();
       let discount = 0;
       if (appliedCoupon) {
         const c = COUPONS[appliedCoupon];
@@ -270,7 +270,7 @@
           name: document.getElementById('cust-name').value,
           phone: document.getElementById('cust-phone').value,
           address: document.getElementById('cust-address').value,
-          email: window.SweetCrustAuth.getUser()?.email || 'guest@example.com',
+          email: window.ExpressoAuth.getUser()?.email || 'guest@example.com',
           message: document.getElementById('cust-message').value
         },
         items: cart,

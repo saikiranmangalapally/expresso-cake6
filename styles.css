@@ -1499,3 +1499,15 @@ td select {
 }
 .order-detail-body { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .order-items-list { grid-column: 1/-1; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 8px; }
+
+
+/* Added for new logo */
+.brand-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.footer-brand .brand-logo {
+  height: 80px;
+}

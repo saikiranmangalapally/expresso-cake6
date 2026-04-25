@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Orders | SweetCrust Bakery</title>
-  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-1">
+  <title>My Orders | Expresso Cake</title>
+  <link rel="stylesheet" href="/styles.css?v=bakery-redesign-2">
 </head>
 <body>
   <header class="site-header compact">
     <div class="header-main">
       <a class="brand" href="index.html" aria-label="Cake Expresso home">
-        <img src="/assets/logo.png" alt="Cake Expresso" style="height: 60px; width: auto; object-fit: contain;">
+        <img src="/assets/logo.jpg" alt="Cake Expresso" class="brand-logo">
       </a>
       <nav class="header-actions">
         <a href="shop.html">Shop</a>
@@ -106,13 +106,13 @@
 
     async function renderOrders() {
       const container = document.getElementById('orders-list');
-      const user = window.SweetCrustAuth.getUser();
+      const user = window.ExpressoAuth.getUser();
 
       // Update auth link
       const authLink = document.getElementById('auth-link');
       if (user) {
         authLink.textContent = 'Logout';
-        authLink.onclick = (e) => { e.preventDefault(); window.SweetCrustAuth.logout(); location.reload(); };
+        authLink.onclick = (e) => { e.preventDefault(); window.ExpressoAuth.logout(); location.reload(); };
       }
 
       // Check for order confirmation redirect
@@ -133,7 +133,7 @@
         document.getElementById('login-form').addEventListener('submit', (e) => {
           e.preventDefault();
           const email = document.getElementById('login-email').value.trim();
-          if (email) { window.SweetCrustAuth.login(email); renderOrders(); }
+          if (email) { window.ExpressoAuth.login(email); renderOrders(); }
         });
         return;
       }

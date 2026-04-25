@@ -1,7 +1,7 @@
 const storage = {
-  orders: "sweetcrust-orders",
-  enquiries: "sweetcrust-enquiries",
-  settings: "sweetcrust-settings",
+  orders: "Expresso Cake-orders",
+  enquiries: "Expresso Cake-enquiries",
+  settings: "Expresso Cake-settings",
 };
 
 const seedOrders = [
@@ -18,9 +18,9 @@ const seedEnquiries = [
 ];
 
 const defaultSettings = {
-  storeName: "SweetCrust Bakery",
+  storeName: "Expresso Cake",
   phone: "+91 89700 10111",
-  email: "support@sweetcrust.example",
+  email: "support@Expresso Cake.example",
   deliveryMessage: "Same-day and fixed-time delivery available in selected cities.",
   offer: "Fresh cakes, photo cakes and desserts delivered today.",
 };
@@ -52,7 +52,7 @@ function makeId(name) {
 }
 
 function productList() {
-  return window.SweetCrustData.getProducts().map((product, index) => ({
+  return window.ExpressoData.getProducts().map((product, index) => ({
     id: product.id || makeId(`${product.name}-${index}`),
     stock: product.stock ?? 25,
     status: product.status || "active",
@@ -61,7 +61,7 @@ function productList() {
 }
 
 function saveProductList(products) {
-  window.SweetCrustData.saveProducts(products);
+  window.ExpressoData.saveProducts(products);
   setSaveState("Product catalogue saved");
   syncWithServer();
 }
@@ -304,7 +304,7 @@ document.querySelector("[data-category-filter]").addEventListener("change", rend
 
 document.querySelector("[data-reset-products]").addEventListener("click", () => {
   if (!confirm("Reset product catalogue to the original bakery data?")) return;
-  catalog = window.SweetCrustData.resetProducts().map((product, index) => ({
+  catalog = window.ExpressoData.resetProducts().map((product, index) => ({
     id: product.id || makeId(`${product.name}-${index}`),
     stock: product.stock ?? 25,
     status: product.status || "active",
