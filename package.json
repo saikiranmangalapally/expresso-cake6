@@ -1,0 +1,12 @@
+{
+  "name": "groxi-fnp-inspired-site",
+  "version": "1.0.0",
+  "description": "Groxi Fresh Grocery & Gifting Store",
+  "scripts": {
+    "dev": "node local-server.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
